@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.10  # Reemplaza "3.x" con la versión de Python que estás utilizando
+          python-version: 3.11.3  # Reemplaza "3.x" con la versión de Python que estás utilizando
 
       - name: Install Poetry
         run: |
