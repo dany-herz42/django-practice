@@ -41,7 +41,7 @@ jobs:
           git commit -m "Update requirements.txt" || echo "No changes to commit"
       
       - name: Push changes
-        uses: ad-m/github-push-action@github.head_ref
+        uses: ad-m/github-push-action@refactor/githubActions
         with:
           branch: ${{ github.head_ref }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
