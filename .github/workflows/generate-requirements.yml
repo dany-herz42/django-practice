@@ -35,10 +35,14 @@ jobs:
 
       - name: Commit changes
         run: |
+          git branch
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add requirements.txt
           git commit -m "Update requirements.txt" || echo "No changes to commit"
+
+      - name: Push changes
+        run: |
           git push origin ${{ github.head_ref }}
 
       # - name: Push changes
