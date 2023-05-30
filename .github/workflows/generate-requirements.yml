@@ -41,7 +41,8 @@ jobs:
           git commit -m "Update requirements.txt" || echo "No changes to commit"
 
       - name: Print PR Branch Name
-        run: echo "PR Branch: ${{ github.event.pull_request.head.ref }}"
+        run: |
+          echo "PR Branch: ${{ github.head_ref }}"
       
       - name: Push changes
         uses: ad-m/github-push-action@master
