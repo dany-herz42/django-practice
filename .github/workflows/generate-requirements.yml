@@ -29,16 +29,16 @@ jobs:
       - name: Generate requirements.txt
         run: poetry export --output requirements.txt --without-hashes
 
+      
+      - name: Fetch latest changes
+        run: git fetch origin
+
       - name: Commit changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add requirements.txt
           git commit -m "Update requirements.txt" || echo "No changes to commit"
-
-      - name: Fetch latest changes
-        run: git fetch origin
-
       
       - name: Push changes
         uses: ad-m/github-push-action@master
