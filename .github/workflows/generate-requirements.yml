@@ -29,9 +29,24 @@ jobs:
       - name: Generate requirements.txt
         run: poetry export --output requirements.txt --without-hashes
 
+      
+      - name: Fetch latest changes
+        run: git fetch origin
+
       - name: Commit changes
         run: |
+          git switch ${{ github.head_ref }}
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add requirements.txt
           git commit -m "Update requirements.txt" || echo "No changes to commit"
+
+      - name: Push changes
+        run: |
+          git push origin ${{ github.head_ref }}
+
+      # - name: Push changes
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     branch: ${{ github.head_ref }}
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
