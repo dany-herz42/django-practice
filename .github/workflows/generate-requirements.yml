@@ -39,6 +39,9 @@ jobs:
           git config --local user.name "GitHub Action"
           git add requirements.txt
           git commit -m "Update requirements.txt" || echo "No changes to commit"
+
+      - name: Print PR Branch Name
+        run: echo "PR Branch: ${{ github.event.pull_request.head.ref }}"
       
       - name: Push changes
         uses: ad-m/github-push-action@master
