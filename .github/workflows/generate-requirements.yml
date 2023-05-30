@@ -42,7 +42,7 @@ jobs:
 
       - name: Print PR Branch Name
         run: |
-          echo "PR Branch: ${{ github.head_ref }}"
+          echo ${{ github.head_ref }}
       
       - name: Push changes
         uses: ad-m/github-push-action@master
