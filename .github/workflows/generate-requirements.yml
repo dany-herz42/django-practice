@@ -39,5 +39,30 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          branch: ${{ github.head_ref }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const github = require('@actions/github');
+            const context = github.context;
+            const octokit = new github.GitHub(process.env.GITHUB_TOKEN);
+
+            async function run() {
+              try {
+                await octokit.git.createCommit({
+                  ...context.repo,
+                  message: 'Update requirements.txt',
+                  tree: context.payload.pull_request.head.sha,
+                  parents: [context.payload.pull_request.base.sha]
+                });
+
+                await octokit.git.updateRef({
+                  ...context.repo,
+                  ref: `refs/pull/${context.payload.pull_request.number}/merge`,
+                  sha: context.payload.pull_request.head.sha,
+                  force: true
+                });
+              } catch (error) {
+                console.error(error);
+                process.exit(1);
+              }
+            }
+
+            run();
